@@ -1,23 +1,27 @@
 def main():
-    with open('operacoes.txt','r') as file:
-        num_operacao = int(file.readline())
-        resultados = []
+    with open('operacoes.txt','r') as arquivo:
+        #DESCOBRIR COMO FAZER VALIDAÇÃO DE TODAS AS LINHAS, PARA SE CASO ENCONTRAR ALGUMA FALHA FAZER UM BREAK E MANDAR REESCREVER O ARQUIVO TXT
+        num_operacao = int(arquivo.readline().strip()[0])
         for _ in range(num_operacao):
-            cod_operacao = file.readline().strip()
-            conjunto1 = set(file.readline().strip().split(','))
-            conjunto2 = set(file.readline().strip().split(','))
+            cod_operacao = arquivo.readline().strip()[0]
+            conjunto1 = set(arquivo.readline().strip().split(', '))
+            conjunto2 = set(arquivo.readline().strip().split(', '))
             if cod_operacao == "U":
-                resultado = conjunto1.union(conjunto2)
+                operacao = "União"
+                resultado = sorted(conjunto1.union(conjunto2))
             elif cod_operacao == "I":
-                resultado = conjunto1.intersection(conjunto2)
+                operacao = "Intersecção"
+                resultado = sorted(conjunto1.intersection(conjunto2))
             elif cod_operacao == "D":
-                resultado = conjunto1.difference(conjunto2)
+                operacao = "Diferença"
+                resultado = sorted(conjunto1.difference(conjunto2))
             elif cod_operacao == "C":
-                resultado = {(a, b) for a in conjunto1 for b in conjunto2}
+                operacao = "Cartesiano"
+                resultado = sorted({(a, b) for a in conjunto1 for b in conjunto2})
             else:
-                resultado = "ERRO"
-            resultados.append(resultado)
-        print(resultados)
+                print("ERRO NENHUMA LETRA FOI DIGITADA")
+                break
+            print("{}: conjunto 1: {}, conjunto 2: {}. Resultado: {}".format(operacao, conjunto1, conjunto2, resultado))
 
 if __name__ == '__main__':
     main()
