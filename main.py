@@ -1,12 +1,16 @@
+import os
 #FUNÇÃO MAIN
 def main():
-    #LISTA OS ARQUIVOS TXT
-    operacoes = ['operacoes/operacao1.txt', 'operacoes/operacao2.txt', 'operacoes/operacao3.txt']
+    #CAMINHO DO DIRETORIO
+    caminho_operacoes = 'operacoes'
+    #LISTAR OS ARQUIVOS TXT
+    operacoes = [f for f in os.listdir(caminho_operacoes) if f.endswith('.txt')]
     #LOOP ENTRE OS ARQUIVOS TXT
     for operacao in operacoes:
+        caminho_completo = os.path.join(caminho_operacoes, operacao)
         print("\nArquivo {}".format(operacao))
         #LEITURA DOS ARQUIVOS TXT
-        with open(operacao, 'r') as arquivo:
+        with open(caminho_completo, 'r') as arquivo:
             #LEITURA DA PRIMEIRA LINHA DO ARQUIVO TXT
             num_operacao = int(arquivo.readline().strip()[0])
             #VERIFICAÇÃO REFERENTE A PRIMEIRA LINHA
